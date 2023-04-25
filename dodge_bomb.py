@@ -21,7 +21,7 @@ def check_bound(scr_rct: pg.Rect, obj_rct: pg.Rect) -> tuple[bool,bool]:
     """
 
     yoko, tate = True, True
-    if obj_rct.left < scr_rct.left or scr_rct.right < obj_rct.rigth:
+    if obj_rct.left < scr_rct.left or scr_rct.right < obj_rct.right:
         yoko = False
     if obj_rct.top < scr_rct.top or scr_rct.bottom < obj_rct.bottom:
         tate = False
@@ -61,6 +61,11 @@ def main():
         for k, mv in delta.items():
             if key_lst[k]:
                 kk_rct.move_ip(mv)  #move_ip:移動メソッド(引数：横速度、縦速度)
+        #ex05
+            if check_bound(screen.get_rect(), kk_rct) != (True, True):
+                for k, mv in delta.items():
+                    if key_lst[k]:
+                        kk_rct.move_ip(-mv[0], -mv[1])
 
         screen.blit(bg_img, [0, 0])
         screen.blit(kk_img, kk_rct)  #ex04改変
