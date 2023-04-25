@@ -76,6 +76,8 @@ def main():
         if not tate:  #縦に出てる
             vy *= -1
         screen.blit(bb_img, bb_rct)
+        if kk_rct.colliderect(bb_rct):  #ex06
+            return
 
         pg.display.update()
         clock.tick(1000)
