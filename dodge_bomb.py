@@ -29,7 +29,7 @@ def check_bound(scr_rct: pg.Rect, obj_rct: pg.Rect) -> tuple[bool,bool]:
 
 def main():
     pg.display.set_caption("逃げろ！こうかとん")
-    screen = pg.display.set_mode((1600, 900))  #変更済
+    screen = pg.display.set_mode((1600,900))  #変更済
     clock = pg.time.Clock()
     bg_img = pg.image.load("ex02-20230425/fig/pg_bg.jpg")
     kk_img = pg.image.load("ex02-20230425/fig/3.png")
