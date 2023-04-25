@@ -16,6 +16,19 @@ delta = {
     pg.K_c: (-1, +1)  #左下
     }
 
+kk_img = pg.image.load("ex02/fig/3.png")
+    #kk_img = pg.transform.rotozoom(kk_img, 0, 2.0)  #引数：(角度、拡大)
+    #追加１(途中)
+    #kk_img = pg.transform.rotozoom(kk_img, 45, 2.0)
+kk_imgs = {(0, -1):pg.transform.rotozoom(pg.transform.flip(kk_img, True, False), 90, 2.0),
+            (+1, -1):pg.transform.rotozoom(pg.transform.flip(kk_img, True, False), 45, 2.0),
+            (+1, 0):pg.transform.flip(kk_img, True, False),
+            (+1, +1):pg.transform.rotozoom(pg.transform.flip(kk_img, True, False), 315, 2.0),
+            (0, +1):pg.transform.rotozoom(pg.transform.flip(kk_img, True, False), 270, 2.0),
+            (-1, +1):pg.transform.rotozoom(kk_img, 45, 2.0),
+            (-1, 0):pg.transform.rotozoom(kk_img, 0, 2.0),
+            (-1, -1):pg.transform.rotozoom(kk_img, 315, 2.0)}
+
 #ex05
 def check_bound(scr_rct: pg.Rect, obj_rct: pg.Rect) -> tuple[bool,bool]:
     """
@@ -37,18 +50,7 @@ def main():
     screen = pg.display.set_mode((1600,900))  #変更済
     clock = pg.time.Clock()
     bg_img = pg.image.load("ex02/fig/pg_bg.jpg")
-    kk_img = pg.image.load("ex02/fig/3.png")
-    #kk_img = pg.transform.rotozoom(kk_img, 0, 2.0)  #引数：(角度、拡大)
-    #追加１(途中)
-    #kk_img = pg.transform.rotozoom(kk_img, 45, 2.0)
-    kk_imgs = {(0, -1):pg.transform.rotozoom(pg.transform.flip(kk_img, True, False), 90, 2.0),
-               (+1, -1):pg.transform.rotozoom(pg.transform.flip(kk_img, True, False), 45, 2.0),
-               (+1, 0):pg.transform.flip(kk_img, True, False),
-               (+1, +1):pg.transform.rotozoom(pg.transform.flip(kk_img, True, False), 315, 2.0),
-               (0, +1):pg.transform.rotozoom(pg.transform.flip(kk_img, True, False), 270, 2.0),
-               (-1, +1):pg.transform.rotozoom(kk_img, 45, 2.0),
-               (-1, 0):pg.transform.rotozoom(kk_img, 0, 2.0),
-               (-1, -1):pg.transform.rotozoom(kk_img, 315, 2.0)}
+    
     #追加２
     accs = [a for a in range(1,11)]
     #for r in range(1,11):
