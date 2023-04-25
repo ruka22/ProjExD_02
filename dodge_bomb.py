@@ -14,8 +14,9 @@ def main():
     pg.draw.circle(bb_img, (255,0,0), (10,10),10 )  #ex01
     bb_img.set_colorkey((0,0,0))
     x , y = random.randint(0,1400), random.randint(0,700)  #ex02
-    screen.blit(bb_img,[x, y])
+    #screen.blit(bb_img,[x, y])
     vx, vy = +1, +1  #ex03
+    bb_rct = bb_img.get_rect()
     bb_rct.center = x, y
     #ここから既存
     tmr = 0
@@ -28,6 +29,8 @@ def main():
         tmr += 1
         screen.blit(bg_img, [0, 0])
         screen.blit(kk_img, [900, 400])
+        bb_rct.move_ip(vx,vy)  #ex03
+        screen.blit(bb_img, bb_rct)
 
         pg.display.update()
         clock.tick(1000)
