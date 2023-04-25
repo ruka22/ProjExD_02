@@ -70,6 +70,11 @@ def main():
         screen.blit(bg_img, [0, 0])
         screen.blit(kk_img, kk_rct)  #ex04改変
         bb_rct.move_ip(vx,vy)  #ex03
+        yoko, tate = check_bound(screen.get_rect(), bb_rct)
+        if not yoko: #横に出てる
+            vx *= -1
+        if not tate:  #縦に出てる
+            vy *= -1
         screen.blit(bb_img, bb_rct)
 
         pg.display.update()
