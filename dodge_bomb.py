@@ -4,11 +4,16 @@ import sys
 import random
 
 #ex04
+#追加(斜め移動)
 delta = {
-    pg.K_UP: (0, -1),
-    pg.K_DOWN: (0, +1),
-    pg.K_LEFT: (-1, 0),
-    pg.K_RIGHT: (+1, 0),
+    pg.K_r: (0, -1),  #上
+    pg.K_v: (0, +1),  #下
+    pg.K_d: (-1, 0),  #左
+    pg.K_g: (+1, 0),  #右
+    pg.K_t: (+1, -1),  #右上
+    pg.K_b: (+1, +1),  #右下
+    pg.K_e: (-1, -1),  #左上
+    pg.K_c: (-1, +1)  #左下
     }
 
 #ex05
@@ -31,21 +36,21 @@ def main():
     pg.display.set_caption("逃げろ！こうかとん")
     screen = pg.display.set_mode((1600,900))  #変更済
     clock = pg.time.Clock()
-    bg_img = pg.image.load("ex02-20230425/fig/pg_bg.jpg")
-    kk_img = pg.image.load("ex02-20230425/fig/3.png")
-    kk_img = pg.transform.rotozoom(kk_img, 0, 2.0)  #引数：(角度、拡大)
+    bg_img = pg.image.load("ex02/fig/pg_bg.jpg")
+    kk_img = pg.image.load("ex02/fig/3.png")
+    #kk_img = pg.transform.rotozoom(kk_img, 0, 2.0)  #引数：(角度、拡大)
     #追加１(途中)
     #kk_img = pg.transform.rotozoom(kk_img, 45, 2.0)
-    #kk_imgs = {(0, -1):pg.transform.rotozoom(pg.transform.flip(kk_img, True, False), 90, 2.0),
-    #           (+1, -1):pg.transform.rotozoom(pg.transform.flip(kk_img, True, False), 45, 2.0),
-    #           (+1, 0):pg.transform.flip(kk_img, True, False),
-    #           (+1, +1):pg.transform.rotozoom(pg.transform.flip(kk_img, True, False), 315, 2.0),
-    #           (0, +1):pg.transform.rotozoom(pg.transform.flip(kk_img, True, False), 270, 2.0),
-    #           (-1, +1):pg.transform.rotozoom(kk_img, 45, 2.0),
-    #           (-1, 0):pg.transform.rotozoom(kk_img, 0, 2.0),
-    #           (-1, -1):pg.transform.rotozoom(kk_img, 315, 2.0)}
+    kk_imgs = {(0, -1):pg.transform.rotozoom(pg.transform.flip(kk_img, True, False), 90, 2.0),
+               (+1, -1):pg.transform.rotozoom(pg.transform.flip(kk_img, True, False), 45, 2.0),
+               (+1, 0):pg.transform.flip(kk_img, True, False),
+               (+1, +1):pg.transform.rotozoom(pg.transform.flip(kk_img, True, False), 315, 2.0),
+               (0, +1):pg.transform.rotozoom(pg.transform.flip(kk_img, True, False), 270, 2.0),
+               (-1, +1):pg.transform.rotozoom(kk_img, 45, 2.0),
+               (-1, 0):pg.transform.rotozoom(kk_img, 0, 2.0),
+               (-1, -1):pg.transform.rotozoom(kk_img, 315, 2.0)}
     #追加２
-    accs = [a for in range(1,11)]
+    accs = [a for a in range(1,11)]
     #for r in range(1,11):
     #    bb_img = pg.Surface((20*r, 20*r))
     #    pg.draw.circle(bb_img, (255,0,0), (10*r, 10*r), 10*r)
@@ -68,6 +73,9 @@ def main():
     while True:
         for event in pg.event.get():
             if event.type == pg.QUIT: 
+                font = pg.font.Font(None,80)
+                txt = fonto.render("Game Over", True,(255, 255, 255))
+                screen.blit(txt, [800, 450])
                 return 0
 
         tmr += 1
@@ -84,13 +92,12 @@ def main():
                         kk_rct.move_ip(-mv[0], -mv[1])
 
         #追加２的な
-        if tmr % 10 == 0:
-            vx += 1
-            vy += 1
+        if tmr % 100 == 0:
+            vx, vy = accs[random.randint(0,9)], accs[random.randint(0,9)]
 
         screen.blit(bg_img, [0, 0])
-        screen.blit(kk_img, kk_rct)  #ex04改変
-        #screen.blit(kk_imgs[mv], kk_rct)
+        #screen.blit(kk_img, kk_rct)  #ex04改変
+        screen.blit(kk_imgs[mv], kk_rct)
         bb_rct.move_ip(vx,vy)  #ex03
         yoko, tate = check_bound(screen.get_rect(), bb_rct)
         if not yoko: #横に出てる
